@@ -1,2 +1,2 @@
-# Drone-para-fiscaliza-o-termografica-em-redes-de-distribuicao-de-energia-eletrica
+# Drone-para-fiscalizacao-termografica-em-redes-de-distribuicao-de-energia-eletrica
 Este repositório contém o desenvolvimento de um sistema de drone autônomo equipado com câmera termográfica para inspeção de pontos quentes em redes de distribuição de energia elétrica. O projeto visa criar uma solução inovadora e de baixo custo para melhorar a eficiência e segurança das inspeções em linhas de transmissão.
