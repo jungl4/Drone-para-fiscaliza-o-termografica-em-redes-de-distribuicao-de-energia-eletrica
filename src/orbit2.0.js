@@ -27,15 +27,9 @@ process.on('SIGINT', () => {
 });
 
 function safeStopAndLand() {
-  console.log('[*] Parando...');
-  try {
-    client.stop();
-    setTimeout(() => client.land(() => process.exit(0)), 500);
-  } catch {
-    process.exit(0);
-  }
+  try { client.stop(); } catch {}
+  try { client.land(() => process.exit(0)); } catch { process.exit(0); }
 }
-
 
 async function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));
@@ -44,14 +38,19 @@ async function sleep(ms) {
 async function main() {
   console.log('[*] Preparando...');
   client.disableEmergency();
-  client.ftrim();
-  client.calibrate(0);
-  client.config('general:navdata_demo', 'FALSE'); // tentar navdata completa
-
+  //client.ftrim()
+  
+  //client.config('general:navdata_demo', 'FALSE'); // tentar navdata completa
+  await sleep(2000)
   // Comandos do drone
   console.log('[*] Decolando...');
   client.takeoff();
   await sleep(6000);
+  client.stop();
+  //client.calibrate(0);
+  //await sleep(3000);
+  client.up(0.5)
+  await sleep(2000);
   client.stop();
   console.log('[*] Adquirindo raio...');
   client.back(0.04);
@@ -62,6 +61,10 @@ async function main() {
   console.log('[*] Finalizado. Pousando...');
   client.stop();
   await sleep(1000);
+  client.stop()
+  client.front(0.04);
+  await sleep(5000);
+  client.stop();
   client.land();
   await sleep(3000);
   console.log('[✓] Concluído.');
@@ -71,8 +74,9 @@ async function main() {
 async function orbitOpenLoop() {
   const startTime = Date.now();
   
-  client.clockwise(yawSpeed/yawMaxDegSpeed); //velocidade de giro
-  client.right(linearSpeed/linearMaxSpeed); //velocidade lateral
+  client.clockwise(yawSpeed/yawMaxDegSpeed);
+  //client.clockwise(0.5); //velocidade de giro
+  client.left(linearSpeed/linearMaxSpeed); //velocidade lateral
   
 
   while (Date.now() - startTime < tempoTotal){
@@ -82,7 +86,7 @@ async function orbitOpenLoop() {
   };
   client.stop();
 
-}
+};
 
 main().catch(err => {
   console.error('[x] Erro:', err);
