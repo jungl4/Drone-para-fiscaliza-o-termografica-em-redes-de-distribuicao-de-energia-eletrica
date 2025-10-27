@@ -1,0 +1,5 @@
+nohup: ignorando entrada
+[wrapper] aguardando navdata do proxy (até 5s)...
+[ar-drone-proxy] connected to server ws://localhost:3001
+[wrapper] Iniciando takeoffAndStartStabilize() do controlador (mock)
+[wrapper] Controlador iniciado.

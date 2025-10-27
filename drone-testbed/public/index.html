@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Drone Testbed</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    #status { padding: 12px; background: #222; color: #fff; }
+    #main { display:flex; gap:12px; padding:12px; }
+    #telemetry { width: 420px; height: 360px; border:1px solid #ccc; padding:8px; overflow:auto; }
+    #viz { flex:1; height:360px; border:1px solid #ccc; position:relative; }
+    #drone { width:24px; height:24px; background:crimson; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:4px; }
+  </style>
+</head>
+<body>
+  <div id="status">Drone Testbed — <span id="conn">disconnected</span></div>
+  <div id="main">
+    <div id="telemetry"></div>
+    <div id="viz"><div id="drone"></div></div>
+  </div>
+  <script>
+    const telemetryEl = document.getElementById('telemetry');
+    const connEl = document.getElementById('conn');
+    const droneEl = document.getElementById('drone');
+
+    const ws = new WebSocket(`ws://${location.host}`);
+    ws.addEventListener('open', () => { connEl.textContent = 'connected'; connEl.style.color='lightgreen'; });
+    ws.addEventListener('close', () => { connEl.textContent = 'disconnected'; connEl.style.color='red'; });
+    ws.addEventListener('message', (ev) => {
+      try {
+        const data = JSON.parse(ev.data);
+        if (data.type === 'telemetry') {
+          const t = new Date(data.payload.t).toISOString();
+          telemetryEl.innerHTML = `<div><b>${t}</b></div>` + telemetryEl.innerHTML;
+          telemetryEl.innerHTML = `<div>vx: ${data.payload.vx.toFixed(2)} cm/s, vy: ${data.payload.vy.toFixed(2)} cm/s, yaw: ${data.payload.yawRate.toFixed(2)} deg/s</div>` + telemetryEl.innerHTML;
+
+          // atualizar posição do drone visualmente (escala arbitrária)
+          const scale = 3; // px/cm
+          const x = 200 + data.payload.vx * scale;
+          const y = 180 + data.payload.vy * scale;
+          droneEl.style.left = x + 'px';
+          droneEl.style.top = y + 'px';
+        }
+      } catch (e) { console.warn('ws parse err', e); }
+    });
+  </script>
+</body>
+</html>

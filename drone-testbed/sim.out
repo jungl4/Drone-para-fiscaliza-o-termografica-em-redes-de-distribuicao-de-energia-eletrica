@@ -1,0 +1,4 @@
+nohup: ignorando entrada
+[sim] Chamando takeoffAndStartStabilize() do módulo de controle
+[sim] conectado ao WS server ws://localhost:3001
+[sim] Estabilização iniciada.

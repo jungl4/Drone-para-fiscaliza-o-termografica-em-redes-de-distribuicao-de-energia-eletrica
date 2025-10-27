@@ -1,0 +1,16 @@
+{
+  "name": "drone-testbed",
+  "version": "0.1.0",
+  "description": "Simulador local para testar e ajustar o controlador de estabilidade do drone",
+  "main": "simulator.js",
+  "scripts": {
+    "start": "node simulator.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "eventemitter3": "^4.0.7",
+    "express": "^4.18.2"
+    ,"ws": "^8.13.0"
+  }
+}

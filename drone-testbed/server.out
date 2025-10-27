@@ -1,0 +1,16 @@
+[server] HTTP server listening on http://localhost:3001
+[server] Starting internal fallback simulator (no external simulator detected)
+[server] WS client connected. Total: 1
+[server] Stopped internal simulator (external simulator detected)
+[server] WS client disconnected. Total: 0
+[server] Starting internal fallback simulator (no external simulator detected)
+[server] WS client connected. Total: 1
+[server] WS client disconnected. Total: 0
+[server] WS client connected. Total: 1
+[server] WS client connected. Total: 2
+[server] WS client disconnected. Total: 1
+[server] WS client disconnected. Total: 0
+[server] WS client connected. Total: 1
+[server] WS client connected. Total: 2
+[server] WS client disconnected. Total: 1
+[server] WS client connected. Total: 2
